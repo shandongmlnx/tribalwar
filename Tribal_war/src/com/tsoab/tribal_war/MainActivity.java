@@ -1,5 +1,7 @@
 package com.tsoab.tribal_war;
 
+import com.tsoab.tribal_war.view.InfantryView;
+
 import android.support.v7.app.ActionBarActivity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -13,10 +15,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         
-        Bitmap bubingBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.bubing);
+        setContentView(new InfantryView(this));
         
+//        Bitmap bubingBitmap = BitmapFactory.decodeResource(getResources(),
+//				R.drawable.bubing);
+//        System.out.println(bubingBitmap);
     }
 
 

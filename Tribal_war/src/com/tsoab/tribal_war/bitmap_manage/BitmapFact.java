@@ -27,7 +27,8 @@ public class BitmapFact {
 
 		for (int i = 0; i < line; i++) {
 			bitmaps[i] = Bitmap.createBitmap(src, singleBitmapwidth * i,
-					singleBitmapheigh * findRow, singleBitmapwidth, singleBitmapheigh);
+					singleBitmapheigh * findRow, singleBitmapwidth,
+					singleBitmapheigh);
 		}
 
 		return bitmaps;
