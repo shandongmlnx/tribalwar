@@ -7,62 +7,47 @@ import com.tsoab.tribal_war.Constant;
 import com.tsoab.tribal_war.R;
 import com.tsoab.tribal_war.TribalWarApp;
 
-public class BitmapFact extends Constant{
-	
+public class BitmapFact extends Constant {
+
 	private static TribalWarApp tribalWarApp;
-	
-	private Bitmap[][] infantryBitmapss;
-	
-	
+
+	private static Bitmap[][] infantryBitmapss;
+
 	public static void setTribalWarApp(TribalWarApp tribalWarApp) {
 		BitmapFact.tribalWarApp = tribalWarApp;
 	}
 
-	/**
-	 * 
-	 * @param src
-	 *            原始图像
-	 * @param row
-	 *            原始图像行数
-	 * @param line
-	 *            原始图像列数
-	 * @param findRow
-	 *            从原始图像中寻找的行号 从0开始
-	 * @return
-	 */
-	private static Bitmap[] GetRowBitmaps(Bitmap src, int row, int line,
-			int findRow) {
+	private static Bitmap[][] getAllBitmapss(Bitmap src, int rows, int lines) {
 
-		int singleBitmapwidth = src.getWidth() / line;
-		int singleBitmapheigh = src.getHeight() / row;
+		int singleBitmapwidth = src.getWidth() / lines;
+		int singleBitmapheigh = src.getHeight() / rows;
 
-		Bitmap[] bitmaps = new Bitmap[line];
+		Bitmap[][] bitmapss = new Bitmap[rows][];
 
-		for (int i = 0; i < line; i++) {
-			bitmaps[i] = Bitmap.createBitmap(src, singleBitmapwidth * i,
-					singleBitmapheigh * findRow, singleBitmapwidth,
-					singleBitmapheigh);
+		for (int i = 0; i < rows; i++) {
+			Bitmap[] bitmaps = new Bitmap[lines];
+			for (int j = 0; j < lines; j++) {
+				bitmaps[j] = Bitmap.createBitmap(src, singleBitmapwidth * j,
+						singleBitmapheigh * i, singleBitmapwidth,
+						singleBitmapheigh);
+			}
+			bitmapss[i] = bitmaps;
 		}
 
-		return bitmaps;
+		return bitmapss;
 	}
-	
-	private Bitmap[][] getAllBitmapss(int rows, int lines)
-	{
-		Bitmap bubingBitmap = BitmapFactory.decodeResource(
-				tribalWarApp.getResources(), R.drawable.bubing);
-		for (int i = 0; i < InfantryBitmapRows; i++) {
-			bitmaps[i] = BitmapFact.GetRowBitmaps(bubingBitmap,
-					InfantryBitmapRows, InfantryBitmapLines, i);
 
+	public static Bitmap[][] getinfantryBitmapss() {
+
+		if (infantryBitmapss == null) {
+			Bitmap bubingBitmap = BitmapFactory.decodeResource(
+					tribalWarApp.getResources(), R.drawable.bubing);
+			infantryBitmapss = getAllBitmapss(bubingBitmap, InfantryBitmapRows,
+					InfantryBitmapLines);
+			if (!bubingBitmap.isRecycled())
+				bubingBitmap.recycle();
 		}
-		return null;
-	}
-	
-	private Bitmap[] getinfantryBitmaps(int findRow)
-	{
-		if (infantryBitmapss == null)
-			infantryBitmapss = getAllBitmapss(InfantryBitmapRows, InfantryBitmapLines);
-		return infantryBitmapss[findRow];
+
+		return infantryBitmapss;
 	}
 }

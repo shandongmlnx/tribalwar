@@ -19,11 +19,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(new InfantryView(this));
-        
-//        Bitmap bubingBitmap = BitmapFactory.decodeResource(getResources(),
-//				R.drawable.bubing);
-//        System.out.println(bubingBitmap);
     }
 
 

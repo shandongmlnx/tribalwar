@@ -14,36 +14,17 @@ import com.tsoab.tribal_war.bitmap_manage.BitmapFact;
 
 public class InfantryView{
 
-	private SurfaceHolder holder;
-	private Bitmap[][] bitmaps;
+	private Bitmap[][] infantryBitmapss;
 
-	private int bitmapIndex = 0;
+	public InfantryView() {
 
-	private MainActivity mainActivity;
-
-	public InfantryView(MainActivity mainActivity) {
-		super(mainActivity);
-
-		this.mainActivity = mainActivity;
-
-		holder = this.getHolder();
-		holder.addCallback(this);
+		infantryBitmapss = BitmapFact.getinfantryBitmapss();
 	}
 
-	private void DrawSelf(Canvas canvas) {
+	public void drawSelf(Canvas canvas) {
 
 		if (canvas == null)
 			return;
-
-		canvas.drawColor(Color.BLACK);
-
-		for (int i = 0; i < InfantryBitmapRows; i++) {
-			canvas.drawBitmap(bitmaps[i][bitmapIndex], getWidth() / 2,
-					getHeight() / InfantryBitmapRows * i, null);
-		}
-
-		bitmapIndex++;
-		bitmapIndex = bitmapIndex >= InfantryBitmapLines ? 0 : bitmapIndex;
 	}
 
 }
