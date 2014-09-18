@@ -1,5 +1,8 @@
-package com.tsoab.tribal_war;
+package com.tosoab.tribal_war.activity;
 
+import com.tsoab.tribal_war.R;
+import com.tsoab.tribal_war.R.id;
+import com.tsoab.tribal_war.R.menu;
 import com.tsoab.tribal_war.view.InfantryView;
 
 import android.support.v7.app.ActionBarActivity;
