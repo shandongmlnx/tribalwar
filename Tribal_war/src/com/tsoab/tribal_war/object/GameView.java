@@ -1,4 +1,4 @@
-package com.tsoab.tribal_war.view;
+package com.tsoab.tribal_war.object;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,12 +9,11 @@ import android.view.SurfaceView;
 public class GameView extends SurfaceView implements Callback {
 	;
 
-	private InfantryView infantryView;
+	private Infantry infantryView;
 
 	public GameView(Context context) {
 		super(context);
 
-		infantryView = new InfantryView();
 	}
 
 	@Override

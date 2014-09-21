@@ -3,11 +3,11 @@ package com.tsoab.tribal_war.bitmap_manage;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import com.tsoab.tribal_war.Constant;
 import com.tsoab.tribal_war.R;
 import com.tsoab.tribal_war.TribalWarApp;
+import com.tsoab.tribal_war.constant.BitmapConstant;
 
-public class BitmapFact extends Constant {
+public class BitmapFact extends BitmapConstant {
 
 	private static TribalWarApp tribalWarApp;
 
