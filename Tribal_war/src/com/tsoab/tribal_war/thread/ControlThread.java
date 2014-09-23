@@ -1,10 +1,32 @@
 package com.tsoab.tribal_war.thread;
 
-public class ControlThread extends Thread{
+import com.tsoab.tribal_war.object.GameView;
+
+public class ControlThread extends Thread {
+
+	private GameView gameView;
+	private boolean runFlag;
+
+	public ControlThread(GameView gameView) {
+
+		this.gameView = gameView;
+	}
 
 	@Override
 	public void run() {
 
-		super.run();
+		runFlag = true;
+		while (runFlag) {
+			gameView.draw();
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void setStop() {
+		runFlag = false;
 	}
 }

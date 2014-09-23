@@ -1,5 +1,6 @@
 package com.tsoab.tribal_war.object;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +15,7 @@ import android.view.SurfaceView;
 import com.tosoab.tribal_war.activity.MainActivity;
 import com.tsoab.tribal_war.R;
 import com.tsoab.tribal_war.bitmap_manage.BitmapFact;
+import com.tsoab.tribal_war.constant.BitmapConstant;
 import com.tsoab.tribal_war.constant.SoldierConstant;
 
 public class Infantry extends GameSoldier {
@@ -37,11 +39,20 @@ public class Infantry extends GameSoldier {
 
 		if (canvas == null)
 			return;
+
+		CoordXY coordXY = CoordMN.getCoordXY(coordCurrent);
+		canvas.drawBitmap(infantryBitmapss[actionState.position * 4
+				+ directionCurrent.position][step], coordXY.x, coordXY.y, null);
 	}
 
 	@Override
 	public void action() {
 
+		// 没有目标
+		if (enemySoldierList == null || enemySoldierList.size() == 0)
+			actionState = ActionState.STAND;
+
+		// 是否有攻击对象
 		if (attackGameSoldier != null
 				&& attackGameSoldier.getBloodCurrent() > 0) {
 
@@ -49,18 +60,26 @@ public class Infantry extends GameSoldier {
 			if (CoordMN.distance(coordCurrent,
 					attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
 				attack();
+				return;
+			}
+		} else {
+			// 寻找目标
+			findAttackObject();
+			// 在攻击范围内
+			if (CoordMN.distance(coordCurrent,
+					attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
+				attack();
+				return;
 			}
 		}
-		// 寻找目标
-		findAttackObject();
 		// 移动
 		move();
 	}
 
 	@Override
 	protected void attack() {
-		// TODO Auto-generated method stub
 
+		actionState = ActionState.ATK;
 	}
 
 	@Override
@@ -84,11 +103,12 @@ public class Infantry extends GameSoldier {
 			directionCurrent = Direction.NORTH;
 			coordCurrent.n--;
 		}
+		actionState = ActionState.MOVE;
+		step = (step + 1) % BitmapConstant.InfantryBitmapLines;
 	}
 
 	@Override
 	protected void beAttacked(float atk) {
-		// TODO Auto-generated method stub
 
 	}
 
