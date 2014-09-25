@@ -6,7 +6,7 @@ import java.util.Random;
 import android.graphics.Canvas;
 
 public abstract class GameSoldier {
-	
+
 	protected float bloodCurrent; // 当前血量
 	protected Direction directionCurrent; // 当前方向
 	protected ActionState actionState; // 当前运动状态
@@ -17,6 +17,10 @@ public abstract class GameSoldier {
 	protected Random random; // 随机数
 
 	protected int step; // 当前步数
+
+	public void setCoordCurrent(CoordMN coordCurrent) {
+		this.coordCurrent = coordCurrent;
+	}
 
 	public GameSoldier getAttackGameSoldier() {
 		return attackGameSoldier;

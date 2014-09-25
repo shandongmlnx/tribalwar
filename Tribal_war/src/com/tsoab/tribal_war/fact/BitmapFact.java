@@ -1,4 +1,4 @@
-package com.tsoab.tribal_war.bitmap_manage;
+package com.tsoab.tribal_war.fact;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

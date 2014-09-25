@@ -19,6 +19,7 @@ public class MainActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 
 		GameView gameView = new GameView(this);
+		setContentView(gameView);
 		
 		Intent intent = new Intent(ControlServerAction);
 		startService(intent);

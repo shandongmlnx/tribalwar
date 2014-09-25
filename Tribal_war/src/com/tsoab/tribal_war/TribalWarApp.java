@@ -1,6 +1,6 @@
 package com.tsoab.tribal_war;
 
-import com.tsoab.tribal_war.bitmap_manage.BitmapFact;
+import com.tsoab.tribal_war.fact.BitmapFact;
 
 import android.app.Application;
 

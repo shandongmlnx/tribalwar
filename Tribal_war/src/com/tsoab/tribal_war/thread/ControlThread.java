@@ -19,7 +19,7 @@ public class ControlThread extends Thread {
 		while (runFlag) {
 			gameView.draw();
 			try {
-				Thread.sleep(100);
+				Thread.sleep(30);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

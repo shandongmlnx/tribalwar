@@ -1,39 +1,73 @@
 package com.tsoab.tribal_war.object;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 
-public class GameView extends SurfaceView implements Callback, Serializable {
+import com.tsoab.tribal_war.fact.SoldierFact;
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5333267168154554427L;
+public class GameView extends SurfaceView implements Callback {
 
-	private Infantry infantryView;
-	
-//	private SurfaceHolder holder;
+	private Infantry infantry;
+	private SurfaceHolder holder;
+
+	private List<GameSoldier> pSoldierList, cSoldierList;
 
 	public GameView(Context context) {
 		super(context);
-		
-//		holder = this.getHolder();
-//		holder.addCallback(this);
+
+		holder = this.getHolder();
+		holder.addCallback(this);
+
+		pSoldierList = new ArrayList<GameSoldier>();
+		cSoldierList = new ArrayList<GameSoldier>();
+
+		infantry = SoldierFact.getInfantry(cSoldierList, new CoordXY());
 
 	}
-	
+
 	public void draw() {
 
-		System.out.println("ssakdjsdjkabisudhiua");
+		infantry.action();
+
+		Canvas canvas = holder.lockCanvas();
+		if (canvas == null)
+			return;
 		
-//		Canvas canvas = holder.lockCanvas();
-//		infantryView.drawSelf(canvas);
-//		holder.unlockCanvasAndPost(canvas);
+		
+		
+		canvas.drawColor(Color.BLACK);
+		infantry.drawSelf(canvas);
+		
+		for (GameSoldier soldier : cSoldierList) {
+			soldier.drawSelf(canvas);
+		}
+
+		holder.unlockCanvasAndPost(canvas);
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
+			float x = event.getX();
+			float y = event.getY();
+			cSoldierList.add(SoldierFact.getInfantry(cSoldierList, new CoordXY(
+					x, y)));
+			
+			System.out.println("add InfantryO");
+			break;
+		}
+
+		return super.onTouchEvent(event);
 	}
 
 	@Override

@@ -20,6 +20,12 @@ public class ControlServer extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		
+		try {
+			createAllThread();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 	}
 	

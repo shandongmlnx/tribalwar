@@ -1,22 +1,14 @@
 package com.tsoab.tribal_war.object;
 
-import java.io.Serializable;
 import java.util.List;
 import java.util.Random;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
-import android.view.SurfaceView;
 
-import com.tosoab.tribal_war.activity.MainActivity;
-import com.tsoab.tribal_war.R;
-import com.tsoab.tribal_war.bitmap_manage.BitmapFact;
 import com.tsoab.tribal_war.constant.BitmapConstant;
 import com.tsoab.tribal_war.constant.SoldierConstant;
+import com.tsoab.tribal_war.fact.BitmapFact;
 
 public class Infantry extends GameSoldier {
 
@@ -25,7 +17,8 @@ public class Infantry extends GameSoldier {
 	public Infantry(List<GameSoldier> enemySoldierList) {
 
 		bloodCurrent = SoldierConstant.InfantryBloodTotal;
-		directionCurrent = Direction.NORTH;
+		directionCurrent = Direction.SOUTH;
+		actionState = ActionState.MOVE;
 		coordCurrent = new CoordMN();
 		this.enemySoldierList = enemySoldierList;
 
@@ -40,7 +33,7 @@ public class Infantry extends GameSoldier {
 		if (canvas == null)
 			return;
 
-		CoordXY coordXY = CoordMN.getCoordXY(coordCurrent);
+		CoordXY coordXY = coordCurrent.getCoordXY();
 		canvas.drawBitmap(infantryBitmapss[actionState.position * 4
 				+ directionCurrent.position][step], coordXY.x, coordXY.y, null);
 	}
@@ -49,9 +42,10 @@ public class Infantry extends GameSoldier {
 	public void action() {
 
 		// 没有目标
-		if (enemySoldierList == null || enemySoldierList.size() == 0)
+		if (enemySoldierList == null || enemySoldierList.size() == 0) {
 			actionState = ActionState.STAND;
-
+			return;
+		}
 		// 是否有攻击对象
 		if (attackGameSoldier != null
 				&& attackGameSoldier.getBloodCurrent() > 0) {
@@ -85,23 +79,33 @@ public class Infantry extends GameSoldier {
 	@Override
 	protected void move() {
 
+		boolean ismove = false;
+
 		// 向东移动
-		if (coordCurrent.m < attackGameSoldier.getCoordCurrent().m) {
+		if (coordCurrent.m < attackGameSoldier.getCoordCurrent().m
+				&& new CoordMN(coordCurrent.m + 1, coordCurrent.n).validCoord()) {
 			directionCurrent = Direction.EAST;
 			coordCurrent.m++;
+			ismove = true;
 		}
 		// 向西移动
-		else if (coordCurrent.m > attackGameSoldier.getCoordCurrent().m) {
+		if (!ismove && coordCurrent.m > attackGameSoldier.getCoordCurrent().m
+				&& new CoordMN(coordCurrent.m - 1, coordCurrent.n).validCoord()) {
 			directionCurrent = Direction.WEST;
 			coordCurrent.m--;
+			ismove = true;
 		} // 向南移动
-		else if (coordCurrent.n < attackGameSoldier.getCoordCurrent().n) {
+		if (!ismove && coordCurrent.n < attackGameSoldier.getCoordCurrent().n
+				&& new CoordMN(coordCurrent.m, coordCurrent.n + 1).validCoord()) {
 			directionCurrent = Direction.SOUTH;
 			coordCurrent.n++;
+			ismove = true;
 		} // 向北移动
-		else if (coordCurrent.n > attackGameSoldier.getCoordCurrent().n) {
+		if (!ismove && coordCurrent.n > attackGameSoldier.getCoordCurrent().n
+				&& new CoordMN(coordCurrent.m, coordCurrent.n - 1).validCoord()) {
 			directionCurrent = Direction.NORTH;
 			coordCurrent.n--;
+			ismove = true;
 		}
 		actionState = ActionState.MOVE;
 		step = (step + 1) % BitmapConstant.InfantryBitmapLines;
