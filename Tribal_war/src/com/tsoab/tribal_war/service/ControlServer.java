@@ -57,8 +57,11 @@ public class ControlServer extends Service {
 	
 	@Override
 	public void onDestroy() {
-		super.onDestroy();
-		
+		try {
+			stopAllThread();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

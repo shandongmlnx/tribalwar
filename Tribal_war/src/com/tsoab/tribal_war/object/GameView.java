@@ -18,7 +18,7 @@ public class GameView extends SurfaceView implements Callback {
 	private Infantry infantry;
 	private SurfaceHolder holder;
 
-	private List<GameSoldier> pSoldierList, cSoldierList;
+	private List<Soldier> pSoldierList, cSoldierList;
 
 	public GameView(Context context) {
 		super(context);
@@ -26,43 +26,44 @@ public class GameView extends SurfaceView implements Callback {
 		holder = this.getHolder();
 		holder.addCallback(this);
 
-		pSoldierList = new ArrayList<GameSoldier>();
-		cSoldierList = new ArrayList<GameSoldier>();
+		pSoldierList = new ArrayList<Soldier>();
+		cSoldierList = new ArrayList<Soldier>();
 
 		infantry = SoldierFact.getInfantry(cSoldierList, new CoordXY());
 
 	}
 
-	public void draw() {
+	public synchronized void draw() {
 
-		infantry.action();
+		 infantry.action();
 
 		Canvas canvas = holder.lockCanvas();
 		if (canvas == null)
 			return;
-		
-		
-		
+
 		canvas.drawColor(Color.BLACK);
 		infantry.drawSelf(canvas);
-		
-		for (GameSoldier soldier : cSoldierList) {
+
+		for (Soldier soldier : cSoldierList) {
 			soldier.drawSelf(canvas);
 		}
 
 		holder.unlockCanvasAndPost(canvas);
 	}
-
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			float x = event.getX();
-			float y = event.getY();
-			cSoldierList.add(SoldierFact.getInfantry(cSoldierList, new CoordXY(
-					x, y)));
-			
+			int x = (int) event.getX();
+			int y = (int) event.getY();
+
+			synchronized (GameView.this) {
+				cSoldierList.add(SoldierFact.getInfantry(cSoldierList,
+						new CoordXY(x, y)));
+			}
+
 			System.out.println("add InfantryO");
 			break;
 		}
