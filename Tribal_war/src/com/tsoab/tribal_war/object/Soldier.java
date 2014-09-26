@@ -99,33 +99,32 @@ public abstract class Soldier {
 
 		boolean ismove = false;
 
-		if (Math.abs(coordCurrent.m - attackGameSoldier.getCoordCurrent().m) > Math
-				.abs(coordCurrent.n - attackGameSoldier.getCoordCurrent().n)) {
-			// move east
-			if (!ismove)
-				ismove = isMoveEast();
-			// move west
-			if (!ismove)
-				ismove = isMoveWest();
+		if (coordCurrent.n < attackGameSoldier.getCoordCurrent().n) {
 			// move south
 			if (!ismove)
 				ismove = isMoveSouth();
 			// move north
 			if (!ismove)
 				ismove = isMoveNorth();
+			// move east
+			if (!ismove)
+				ismove = isMoveEast();
+			// move west
+			if (!ismove)
+				ismove = isMoveWest();
 		} else {
-			// move south
-			if (!ismove)
-				ismove = isMoveSouth();
-			// move north
-			if (!ismove)
-				ismove = isMoveNorth();
 			// move east
 			if (!ismove)
 				ismove = isMoveEast();
 			// move west
 			if (!ismove)
 				ismove = isMoveWest();
+			// move south
+			if (!ismove)
+				ismove = isMoveSouth();
+			// move north
+			if (!ismove)
+				ismove = isMoveNorth();
 		}
 
 		actionState = ActionState.MOVE;
