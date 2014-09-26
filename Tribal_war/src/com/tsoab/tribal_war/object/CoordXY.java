@@ -1,5 +1,7 @@
 package com.tsoab.tribal_war.object;
 
+import com.tsoab.tribal_war.activity.MainActivity;
+
 public class CoordXY {
 
 	public static final float MXChangeParam = (float) (1.0 / Math.sqrt(2));
@@ -23,7 +25,7 @@ public class CoordXY {
 	}
 
 	public boolean validCoord() {
-		return (x >= 0 && y >= 0);
+		return (x >= 0 && x <= MainActivity.screemWidth && y >= 0 && y <= MainActivity.screemHeigh);
 	}
 
 	@Override

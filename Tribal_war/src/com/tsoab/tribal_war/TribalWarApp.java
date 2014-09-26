@@ -1,8 +1,9 @@
 package com.tsoab.tribal_war;
 
-import com.tsoab.tribal_war.fact.BitmapFact;
-
 import android.app.Application;
+import android.util.DisplayMetrics;
+
+import com.tsoab.tribal_war.fact.BitmapFact;
 
 public class TribalWarApp extends Application{
 

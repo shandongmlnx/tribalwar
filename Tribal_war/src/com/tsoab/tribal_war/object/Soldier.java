@@ -18,8 +18,6 @@ public abstract class Soldier {
 	protected List<Soldier> enemySoldierList; // 敌军
 	protected int soldierSpeed = SoldierConstant.InfantrySpeed;
 
-	protected Random random; // 随机数
-
 	protected int step; // 当前步数
 
 	public void setCoordCurrent(CoordMN coordCurrent) {
@@ -56,22 +54,21 @@ public abstract class Soldier {
 			actionState = ActionState.STAND;
 			return;
 		}
-		// 是否有攻击对象
+		// 在攻击范围内
 		if (attackGameSoldier != null
-				&& attackGameSoldier.getBloodCurrent() > 0) {
-
-			// 在攻击范围内
-			if (CoordMN.distance(coordCurrent,
-					attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
-				attack();
-				return;
-			}
+				&& attackGameSoldier.getBloodCurrent() > 0
+				&& CoordMN.distance(coordCurrent,
+						attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
+			attack();
+			return;
 		} else {
 			// 寻找目标
 			findAttackObject();
 			// 在攻击范围内
-			if (CoordMN.distance(coordCurrent,
-					attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
+			if (attackGameSoldier != null
+					&& attackGameSoldier.getBloodCurrent() > 0
+					&& CoordMN.distance(coordCurrent,
+							attackGameSoldier.getCoordCurrent()) <= SoldierConstant.InfantryATKRange) {
 				attack();
 				return;
 			}
@@ -129,12 +126,12 @@ public abstract class Soldier {
 
 		actionState = ActionState.MOVE;
 		step = (step + 1) % BitmapConstant.InfantryBitmapLines;
-
-		System.out.println(coordCurrent);
 	}
 
 	private boolean isMoveEast() {
 		// move east
+		if (Math.abs(coordCurrent.m - attackGameSoldier.getCoordCurrent().m) < soldierSpeed)
+			return false;
 		if (coordCurrent.m < attackGameSoldier.getCoordCurrent().m
 				&& new CoordMN(coordCurrent.m + soldierSpeed, coordCurrent.n)
 						.validCoord()) {
@@ -147,6 +144,8 @@ public abstract class Soldier {
 
 	private boolean isMoveWest() {
 		// move west
+		if (Math.abs(coordCurrent.m - attackGameSoldier.getCoordCurrent().m) < soldierSpeed)
+			return false;
 		if (coordCurrent.m > attackGameSoldier.getCoordCurrent().m
 				&& new CoordMN(coordCurrent.m - soldierSpeed, coordCurrent.n)
 						.validCoord()) {
@@ -159,6 +158,8 @@ public abstract class Soldier {
 
 	private boolean isMoveSouth() {
 		// move south
+		if (Math.abs(coordCurrent.n - attackGameSoldier.getCoordCurrent().n) < soldierSpeed)
+			return false;
 		if (coordCurrent.n < attackGameSoldier.getCoordCurrent().n
 				&& new CoordMN(coordCurrent.m, coordCurrent.n + soldierSpeed)
 						.validCoord()) {
@@ -171,6 +172,8 @@ public abstract class Soldier {
 
 	private boolean isMoveNorth() {
 		// move north
+		if (Math.abs(coordCurrent.n - attackGameSoldier.getCoordCurrent().n) < soldierSpeed)
+			return false;
 		if (coordCurrent.n > attackGameSoldier.getCoordCurrent().n
 				&& new CoordMN(coordCurrent.m, coordCurrent.n - soldierSpeed)
 						.validCoord()) {
@@ -207,8 +210,9 @@ public abstract class Soldier {
 		for (Soldier soldier : enemySoldierList) {
 			if (CoordMN.distance(coordCurrent,
 					attackGameSoldier.getCoordCurrent()) > CoordMN.distance(
-					coordCurrent, soldier.getCoordCurrent()))
+					coordCurrent, soldier.getCoordCurrent())) {
 				attackGameSoldier = soldier;
+			}
 		}
 	}
 

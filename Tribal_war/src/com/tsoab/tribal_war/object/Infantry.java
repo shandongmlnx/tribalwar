@@ -22,8 +22,6 @@ public class Infantry extends Soldier {
 		coordCurrent = new CoordMN();
 		this.enemySoldierList = enemySoldierList;
 
-		random = new Random();
-
 		infantryBitmapss = BitmapFact.getinfantryBitmapss();
 	}
 

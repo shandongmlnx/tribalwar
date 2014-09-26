@@ -2,6 +2,7 @@ package com.tsoab.tribal_war.object;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -29,20 +30,27 @@ public class GameView extends SurfaceView implements Callback {
 		pSoldierList = new ArrayList<Soldier>();
 		cSoldierList = new ArrayList<Soldier>();
 
-		infantry = SoldierFact.getInfantry(cSoldierList, new CoordXY());
+		pSoldierList.add(SoldierFact.getInfantry(cSoldierList));
+		pSoldierList.add(SoldierFact.getInfantry(cSoldierList));
+		pSoldierList.add(SoldierFact.getInfantry(cSoldierList));
 
 	}
 
 	public synchronized void draw() {
 
-		 infantry.action();
+		for (Soldier soldier : pSoldierList) {
+			soldier.action();
+		}
 
 		Canvas canvas = holder.lockCanvas();
 		if (canvas == null)
 			return;
 
 		canvas.drawColor(Color.BLACK);
-		infantry.drawSelf(canvas);
+
+		for (Soldier soldier : pSoldierList) {
+			soldier.drawSelf(canvas);
+		}
 
 		for (Soldier soldier : cSoldierList) {
 			soldier.drawSelf(canvas);
@@ -50,7 +58,7 @@ public class GameView extends SurfaceView implements Callback {
 
 		holder.unlockCanvasAndPost(canvas);
 	}
-	
+
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
