@@ -1,4 +1,4 @@
-package com.tosoab.tribal_war.activity;
+package com.tsoab.tribal_war.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
