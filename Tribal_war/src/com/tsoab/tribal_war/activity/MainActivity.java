@@ -11,13 +11,14 @@ import android.view.WindowManager;
 
 import com.tsoab.tribal_war.R;
 import com.tsoab.tribal_war.object.GameView;
+import com.tsoab.tribal_war.object.Map;
 import com.tsoab.tribal_war.service.ControlServer;
 
 public class MainActivity extends ActionBarActivity {
 
 	public final static String ControlServerAction = "com.tsoab.tribal_war.service.ControlServer";
 	
-	public static int screemWidth, screemHeigh;
+	public static int Screem_Width, Screem_Heigh;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +45,9 @@ public class MainActivity extends ActionBarActivity {
 	{
 		DisplayMetrics metric = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metric);
-		screemWidth = metric.widthPixels;  // ÆÁÄ»¿í¶È£¨ÏñËØ£©
-		screemHeigh = metric.heightPixels;  // ÆÁÄ»¸ß¶È£¨ÏñËØ£©
+		Screem_Width = metric.widthPixels;  // ÆÁÄ»¿í¶È£¨ÏñËØ£©
+		Screem_Heigh = metric.heightPixels;  // ÆÁÄ»¸ß¶È£¨ÏñËØ£©
+		Map.setCellSize();
 	}
 
 

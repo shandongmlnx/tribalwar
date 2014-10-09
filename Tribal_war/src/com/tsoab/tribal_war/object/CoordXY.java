@@ -25,7 +25,7 @@ public class CoordXY {
 	}
 
 	public boolean validCoord() {
-		return (x >= 0 && x <= MainActivity.screemWidth && y >= 0 && y <= MainActivity.screemHeigh);
+		return (x >= 0 && x <= MainActivity.Screem_Width && y >= 0 && y <= MainActivity.Screem_Heigh);
 	}
 
 	@Override

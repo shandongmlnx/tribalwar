@@ -13,6 +13,8 @@ public class BitmapFact extends BitmapConstant {
 
 	private static Bitmap[][] infantryBitmapss;
 
+	private static Bitmap tree;
+
 	public static void setTribalWarApp(TribalWarApp tribalWarApp) {
 		BitmapFact.tribalWarApp = tribalWarApp;
 	}
@@ -49,5 +51,29 @@ public class BitmapFact extends BitmapConstant {
 		}
 
 		return infantryBitmapss;
+	}
+
+	/**
+	 * get tree bitmap
+	 * 
+	 * @return tree bitmap
+	 */
+	public static Bitmap getTree() {
+		if (tree == null)
+			tree = BitmapFactory.decodeResource(tribalWarApp.getResources(),
+					R.drawable.tree);
+		return tree;
+	}
+
+	/**
+	 * 
+	 * @param dstWidth 	destion width bitmap
+	 * @param dstHeight	destion heigh bitmap
+	 * @return tree bitmap
+	 */
+	public static Bitmap getTree(int dstWidth, int dstHeight) {
+		if (tree == null)
+			tree = Bitmap.createScaledBitmap(getTree(), dstWidth, dstHeight, true);
+		return tree;
 	}
 }

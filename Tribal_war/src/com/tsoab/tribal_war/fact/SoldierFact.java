@@ -24,8 +24,8 @@ public class SoldierFact {
 
 	public static Infantry getInfantry(List<Soldier> enemySoldierList) {
 
-		CoordXY coordXY = new CoordXY(random.nextInt(MainActivity.screemWidth),
-				random.nextInt(MainActivity.screemHeigh));
+		CoordXY coordXY = new CoordXY(random.nextInt(MainActivity.Screem_Width),
+				random.nextInt(MainActivity.Screem_Heigh));
 		return getInfantry(enemySoldierList, coordXY);
 	}
 }
